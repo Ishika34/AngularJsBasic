@@ -1,0 +1,139 @@
+<!DOCTYPE html>  
+ <html>  
+   <head>  
+      <title>Angular JS Forms</title>  
+      <script src = "http://ajax.googleapis.com/ajax/libs/angularjs/1.3.14/angular.min.js"></script>  
+      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+  </head>
+   <body style="background-color: #e3f2fd;">  
+    <div ng-app = "mainApp" ng-controller = "myController">  
+    <nav class="navbar navbar-expand-lg bg-dark text-white">
+   <div class="container-fluid text-light">
+    <div class="collapse navbar-collapse" id="navbarScroll">
+      <ul class="navbar-nav me-auto my-2 my-lg-0 navbar-nav-scroll" style="--bs-scroll-height: 150px;">
+        <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" href="#">Home</a>
+        </li>
+		<li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" href="#">Images</a>
+        </li>
+       <li class="nav-item">
+          <a class="nav-link active text-white" aria-current="page" href="#">About Us</a>
+        </li>
+       
+      </ul>
+      <form class="d-flex " role="search">
+        <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
+        <button class="btn btn-outline-success" type="submit">Search</button>
+      </form>
+    </div>
+  </div>
+</nav>
+<br>
+<H1 class="text-black m-2"> Hello Everyone,<pre><i>Please take a moment to fill this form.</i></pre></H1>
+<form name = "dataForm" novalidate class="container m-5">  
+<div class="row">
+<div class="col-sm-5  p-2">
+<label for="firstName" class="col-sm-3">FirstName: </label>
+<input type="text" placeholder="FirstName" ng-model="dataDetails.firstName" required>
+<div>
+<span style = "color:red" ng-show = "dataForm.firstname.$touched && dataForm.firstname.$invalid">  
+ <span ng-show = "dataForm.firstname.$error.required">First Name is required.</span>  
+ </span> 
+</div>
+</div>
+
+<div class="col-sm-5  p-2">
+<label for="lastName" class="col-sm-3">LastName: </label>
+<input type="text" placeholder="LastName" ng-model="dataDetails.lastName" required>
+<div>
+<span style = "color:red" ng-show = "dataForm.lastname.$touched && dataForm.lastname.$invalid">  
+ <span ng-show = "dataForm.lastname.$error.required">Last Name is required.</span>  
+ </span> 
+</div>
+
+</div>
+</div>
+
+<div class="row">
+<div class="col-sm-5 p-2 ">
+<label for="gender" class="col-sm-3">Gender: </label>
+<input type="radio" name="gender" value="m" required ng-model="gender">Male
+<input type="radio" name="gender" value="f" ng-model="dataDetails.gender">Female
+</div>
+<div class=" col-sm-5  p-2">
+<label for="age" class="col-sm-3">Age: </label>
+<input type="number" maxLength="2" min="1" placeholder="Age" ng-model="dataDetails.age" required>
+</div>
+</div>
+<div class="row">
+<div class=" col-sm-5 d-inline p-2">
+<label for="email" class="col-sm-3">Email: </label>
+<input type="email" placeholder="Email" ng-model="dataDetails.email" required>
+<div>
+ <span style = "color:red" ng-show = "dataForm.email.$dirty && dataForm.email.$invalid">  
+                        <span ng-show = "dataForm.email.$error.required">Email is required.</span>  
+                        <span ng-show = "dataForm.email.$error.email">Invalid email address.</span>  
+                     </span>  
+</div>
+</div>
+<div class="col-sm-5 p-2">
+<label for="phno" class="col-sm-3">Phone No. : </label>
+<input type="number" maxLength="10" min="0" placeholder="Phone No." ng-model="dataDetails.phoneNo"  required>
+
+</div>
+</div>
+
+<div class="form-group">
+  <button type="reset" class="btn btn-light float-right" ng-click="reset()">Reset</button>
+  <button type="submit" class="btn btn-primary float-right">Submit</button>
+</div>
+
+            
+               
+                     <!--<button ng-disabled = "studentForm.firstname.$dirty &&  
+                        studentForm.firstname.$invalid || studentForm.lastname.$dirty &&  
+                        studentForm.lastname.$invalid || studentForm.email.$dirty &&  
+                        studentForm.email.$invalid" ng-click="submit()">Submit</button>  -->
+                
+         </form>  
+      </div>  
+ <script>  
+         var mainApp = angular.module("mainApp", []);  
+         mainApp.controller('myController', function($scope) {  
+    
+ $scope.dataDetails = [
+	        {
+	            'firstName':'DemoData',
+	            'lastName':'DemoData',
+	            'email':'d@demo.com',
+                   'age':'21',
+                  'gender':'M',
+                  'phoneNo':'987654098',
+	        },];
+   $scope.submit = function(dataDetails){
+	            $scope.dataDetails.push({ 
+	                'firstName': dataDetails.firstName, 
+	                'lastName': dataDetails.lastName,
+	                'email': dataDetails.email,
+                      'age':dataDetails.age,
+                      'gender':dataDetails.gender,
+                      'phoneNo':dataDetails.phoneNo,
+	           });
+        $scope.PD = {};
+}
+
+	        
+
+   $scope.reset = function(){  
+               $scope.firstName;  
+               $scope.lastName;  
+               $scope.email;  
+            }  
+             $scope.reset();  
+         });
+
+
+      </script>  
+     </body>  
+</html>  

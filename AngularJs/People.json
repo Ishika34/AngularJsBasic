@@ -1,0 +1,22 @@
+{
+	"records": [{
+			"name": "ishika",
+			"phnno": 5458439434,
+			"conPhnno": 5458439434,
+			"gender": "Female",
+			"email": "i@gmail.com",
+			"confemail": "i@gmail.com",
+			"serviceOpted": "Send an Email"
+		},
+		{
+			"name": "mudita",
+			"phnno": 978564658,
+			"conPhnno": 9887556433,
+			"gender": "Female",
+			"email": "mudita@gmail.com",
+			"confemail": "mudita@gmail.com",
+			"serviceOpted": "Send an Email"
+		}
+	]
+
+}

@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>My Crud App</title>
+    <script type="text/javascript" src="angular.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js" integrity="sha384-oBqDVmMz9ATKxIep9tiCxS/Z9fNfEXiDAYTujMAeBAsjFuCZSmKbSSUnQlmh/jp3" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/js/bootstrap.min.js" integrity="sha384-cuYeSxntonz0PPNlHhBs68uyIAVpIIOZZ5JqeqvYYIcEL727kskC66kF92t6Xl2V" crossorigin="anonymous"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+         crossorigin="anonymous">
+        <style>
+          .form{
+            background-color: #6ecbcb;
+            padding: 10px;
+            width: 70%;
+            margin-left: 15%;
+            margin-top: 10px;
+            border-radius: 10px;
+            
+          }
+          .submit{
+            margin-left: 90%;
+          }
+          .search{
+           float: right;
+           padding: 10px;
+           margin: 10px;
+          }
+         
+        </style>
+</head>
+
+<body ng-app="crudApp">
+    <div ng-controller="crudController">
+        <nav class="navbar bg-dark ">
+            <div class="container-fluid">
+
+                <h1 class="text-white">CRUD App</h1>
+                <button class="btn btn-primary "><a href="form.html" class="text-white">Add New Records</a></button>
+
+            </div>
+        </nav>
+     
+		 <form name="data"  class="form" novalidate>
+      <div class="row">
+        <div class="col-sm-5  p-2">
+          <label for="Name" class="col-sm-5">Name:<span style="color: red;"><b> * </b></span> </label>
+          <input type="text" name="name" placeholder="Name" ng-model="form.name" pattern="[a-zA-Z]+" required><br>
+          <span style="color:red;margin-left: 25%;" ng-show="data.$submitted || data.name.$dirty">
+            <span class="error" ng-show="data.name.$error.required"><i class="fa fa-exclamation-circle"></i>Name is
+              Required</span>
+            <span class="error" ng-show="data.name.$error.pattern"><i class="fa fa-exclamation-circle"></i>Only Alphabet
+              allowed</span>
+          </span>
+
+        </div>
+
+        <div class="col-sm-5  p-2">
+          <label for="phnno" class="col-sm-5">PhoneNo: <span style="color: red;"><b> * </b></span> </label>
+          <input type="number" id="phnno" placeholder="Phone Number" ng-model="form.phnno" name="phnno" minlength="0"
+            maxlength="10" ng-pattern="/^[7-9][0-9]{9}$/"  required><br>
+          <span style="color:red;margin-left: 40%;" ng-show="data.$submitted || data.phnno.$dirty">
+            <span class="error" ng-show="data.phnno.$error.required"><i class="fa fa-exclamation-circle"></i>Phone
+              Number is Required</span>
+            <span class="error" ng-show="data.phnno.$error.pattern"><i class="fa fa-exclamation-circle"></i>Please Enter
+              Valid Phone Number</span>
+            <span class="error"
+              ng-show="((data.phnno.$error.minlength || data.phnno.$error.maxlength) && data.phnno.$dirty )"><i
+                class="fa fa-exclamation-circle"></i>Phone Number must be of 10 digits</span>
+          </span>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-sm-5 p-2 ">
+          <label for="gender" class="col-sm-5">Gender: <span style="color: red;"><b> * </b></span> </label>
+          <input type="radio" name="gender" required ng-model="form.gender" ng-value='"Male"'> Male
+          <input type="radio" name="gender" ng-model="form.gender" ng-value='"Female"' required> Female<br />
+          <span style="color:red;margin-left: 25%;" ng-show="data.$submitted || data.gender.$dirty">
+            <span class="error" ng-show="data.gender.$error.required"><i class="fa fa-exclamation-circle"></i>Gender is
+              Required</span>
+
+          </span>
+        </div>
+        <div class="col-sm-5  p-2">
+          <label for="phnno" class="col-sm-5">Confirm PhoneNo: <span style="color: red;"><b> * </b></span> </label>
+          <input type="number"  id="conPhnno"  placeholder="Confirm Phone Number" name="conPhnno" ng-model="form.conPhnno" minlength="0"
+            maxlength="10" ng-pattern="/^[7-9][0-9]{9}$/" compare-to="data.phnno" required>
+          <span style="color:red;margin-left: 40%;" ng-show="data.$submitted || data.conPhnno.$dirty">
+            <span class="error" ng-show="data.conPhnno.$error.required"><i class="fa fa-exclamation-circle"></i>Please
+              Confirm Phone Number</span>
+            <span class="error" ng-show="data.conPhnno.$error.pattern"><i class="fa fa-exclamation-circle"></i>Please
+              Enter Valid Phone Number</span>
+              <span class="error" ng-show="data.conPhnno.$error.compareTo"><i class="fa fa-exclamation-circle"></i>Please
+                not same
+              
+              </span>
+            <span class="error"
+              ng-show="((data.conPhnno.$error.minlength || data.conPhnno.$error.maxlength) && data.conPhnno.$dirty )"><i
+                class="fa fa-exclamation-circle"></i>Phone Number must be of 10 digits</span>
+          </span>
+        </div>
+      </div>
+      <div class="row">
+        <div class=" col-sm-5 d-inline p-2">
+          <label for="email" class="col-sm-5" length="100">Email: <span style="color: red;"><b> * </b></span> </label>
+          <input type="email" placeholder="Email" name="email" ng-model="form.email" required><br>
+          <span style = "color:red;margin-left: 25%;" ng-show = "data.$submitted || data.email.$dirty && data.email.$invalid">  
+            <span ng-show = "data.email.$error.required"><i class="fa fa-exclamation-circle"></i>Email is required.</span>  
+            <span ng-show = "data.email.$error.email"><i class="fa fa-exclamation-circle"></i>Invalid email address.</span>  
+         </span>  
+        </div>
+        <div class=" col-sm-5 d-inline p-2">
+          <label for="email" class="col-sm-5">Confirm Email: <span style="color: red;"><b> * </b></span> </label>
+          <input type="email" placeholder="Confirm Email" name="confemail" ng-model="form.confemail" required><br>
+          <span style = "color:red;margin-left: 40%;" ng-show = "data.$submitted || data.confemail.$dirty && data.confemail.$invalid">  
+            <span ng-show = "data.confemail.$error.required"><i class="fa fa-exclamation-circle"></i>Email is required.</span>  
+            <span ng-show = "data.confemail.$error.email"><i class="fa fa-exclamation-circle"></i>Invalid email address.</span>  
+         </span>  
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-5 p-4">
+          <input type="checkbox" value="Send an Email" ng-model="form.byEmail"> Send an Email
+        </div>
+        <div class="col-sm-7 p-4">
+          <input type="checkbox" value="Send a Message to Phone Number" ng-model="form.byPhone"> Send a Message to Phone
+          Number
+        </div>
+
+      </div>
+              <button type="submit" class="submit btn btn-primary" ng-disabled="data.name.$dirty &&  
+                data.name.$invalid || data.gender.$dirty &&  
+                data.gender.$invalid || data.email.$dirty &&  
+                data.email.$invalid  || data.phnno.$dirty &&  
+                data.phnno.$invalid  || data.confemail.$dirty &&  
+                data.confemail.$invalid" ng-click="submit()">Submit</button>
+      
+</form>
+        <br>
+       <div class="search"> <label>Search: <input ng-model="searchText"></label></div>
+        <table class="table table-bordered text-center mt-4">
+            <thead>
+                <tr>
+                    <td>S.No.</td>
+                    <td>Name</td>
+                    <td>Phone No.</td>
+                    <td>Email Address</td>
+                    <td>Gender</td>
+                    <td>Services Opted</td>
+                    <td>Action</td>
+                </tr>
+            </thead>
+
+            <tr ng-repeat="data in records | orderBy:'name' | filter:searchText">
+                <td>{{$index+1}}</td>
+                <td>{{data.name}}</td>
+                <td>{{data.phnno}}</td>
+                <td>{{data.email}}</td>
+                <td>{{data.gender}}</td>
+                <td>{{data.serviceOpted}}</td>
+                <td>
+                    <button class="btn btn-primary" ng-click="view(data)" data-bs-toggle="modal" data-bs-target="#viewModal">View</button>
+                    <button class="btn btn-success" ng-click="edit(data)" data-bs-toggle="modal" data-bs-target="#editModal">Edit</button>
+                    <button class="btn btn-danger" ng-click="delete()">Delete</button>
+                </td>
+            </tr>
+        </table>
+
+    
+    
+ <!-- Modal -->
+ <div class="modal fade " id="editModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h1 class="modal-title fs-5" id="exampleModalLabel">Update Record</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body p-2 ">
+       
+          <form name="editData" class="container p-4"  novalidate>
+           
+                <label for="Name" class="col-sm-5">Name:<span style="color: red;"><b> * </b></span> </label>
+                <input type="text" name="name" placeholder="Name" ng-model="editData.name" pattern="[a-zA-Z]+" required><br>
+                <span style="color:red;margin-left: 25%;" ng-show="data.$submitted || data.name.$dirty">
+                  <span class="error" ng-show="editData.name.$error.required"><i class="fa fa-exclamation-circle"></i>Name is
+                    Required</span>
+                  <span class="error" ng-show="editData.name.$error.pattern"><i class="fa fa-exclamation-circle"></i>Only Alphabet
+                    allowed</span>
+                </span>
+        
+                <label for="phnno" class="col-sm-5">PhoneNo: <span style="color: red;"><b> * </b></span> </label>
+                <input type="number" placeholder="Phone Number" ng-model="editData.phnno" name="phnno" minlength="0"
+                  maxlength="10" ng-pattern="/^[7-9][0-9]{9}$/" required><br>
+                <span style="color:red;margin-left: 40%;" ng-show="editData.$submitted || editData.phnno.$dirty">
+                  <span class="error" ng-show="editData.phnno.$error.required"><i class="fa fa-exclamation-circle"></i>Phone
+                    Number is Required</span>
+                  <span class="error" ng-show="editData.phnno.$error.pattern"><i class="fa fa-exclamation-circle"></i>Please Enter
+                    Valid Phone Number</span>
+                  <span class="error"
+                    ng-show="((editData.phnno.$error.minlength || editData.phnno.$error.maxlength) && editData.phnno.$dirty )"><i
+                      class="fa fa-exclamation-circle"></i>Phone Number must be of 10 digits</span>
+                </span>
+              
+                <label for="gender" class="col-sm-5">Gender: <span style="color: red;"><b> * </b></span> </label>
+                <input type="radio" name="gender" required ng-model="editData.gender" ng-value='"Male"'> Male
+                <input type="radio" name="gender" ng-model="editData.gender" ng-value='"Female"' required> Female<br />
+                <span style="color:red;margin-left: 25%;" ng-show="editData.$submitted || editData.gender.$dirty">
+                  <span class="error" ng-show="editData.gender.$error.required"><i class="fa fa-exclamation-circle"></i>Gender is
+                    Required</span>
+        
+                </span>
+             
+                <label for="phnno" class="col-sm-5">Confirm PhoneNo: <span style="color: red;"><b> * </b></span> </label>
+                <input type="text" placeholder="Confirm Phone Number" name="conPhnno" ng-model="editData.conPhnno" minlength="0"
+                  maxlength="10" ng-pattern="/^[7-9][0-9]{9}$/" compare-to="editData.phnno" required>
+                <span style="color:red;margin-left: 40%;" ng-show="editData.$submitted || editData.conPhnno.$dirty">
+                  <span class="error" ng-show="editData.conPhnno.$error.required"><i class="fa fa-exclamation-circle"></i>Please
+                    Confirm Phone Number</span>
+                  <span class="error" ng-show="editData.conPhnno.$error.pattern"><i class="fa fa-exclamation-circle"></i>Please
+                    Enter Valid Phone Number</span>
+                    <span class="error" ng-show="editData.conPhnno.$error.compareTo"><i class="fa fa-exclamation-circle"></i>Please
+                      not same
+                    
+                    </span>
+                  <span class="error"
+                    ng-show="((editData.conPhnno.$error.minlength || editData.conPhnno.$error.maxlength) && editData.conPhnno.$dirty )"><i
+                      class="fa fa-exclamation-circle"></i>Phone Number must be of 10 digits</span>
+                </span>
+             
+                <label for="email" class="col-sm-5" length="100">Email: <span style="color: red;"><b> * </b></span> </label>
+                <input type="email" placeholder="Email" name="email" ng-model="editData.email" required><br>
+                <span style = "color:red;margin-left: 25%;" ng-show = "editData.$submitted || editData.email.$dirty && editData.email.$invalid">  
+                  <span ng-show = "editData.email.$error.required"><i class="fa fa-exclamation-circle"></i>Email is required.</span>  
+                  <span ng-show = "editData.email.$error.email"><i class="fa fa-exclamation-circle"></i>Invalid email address.</span>  
+               </span>  
+             
+                <label for="email" class="col-sm-5">Confirm Email: <span style="color: red;"><b> * </b></span> </label>
+                <input type="email" placeholder="Confirm Email" name="confemail" ng-model="editData.confemail" required><br>
+                <span style = "color:red;margin-left: 40%;" ng-show = "data.$submitted || data.confemail.$dirty && data.confemail.$invalid">  
+                  <span ng-show = "data.confemail.$error.required"><i class="fa fa-exclamation-circle"></i>Email is required.</span>  
+                  <span ng-show = "data.confemail.$error.email"><i class="fa fa-exclamation-circle"></i>Invalid email address.</span>  
+               </span>  
+              
+            </div>
+            <div class="row">
+              <div class="col-sm-5 p-4">
+                <input type="checkbox" value="Send an Email" ng-model="form.byEmail"> Send an Email
+              </div>
+              <div class="col-sm-7 p-4">
+                <input type="checkbox" value="Send a Message to Phone Number" ng-model="form.byPhone"> Send a Message to Phone
+                Number
+              </div>
+              </div>
+                    
+        </form>
+      
+      
+      <div class="modal-footer">
+        <button type="button" class="btn btn-primary" ng-click="update()" data-bs-dismiss="modal">Update</button>
+        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+        
+      </div>
+    </div>
+  </div>
+  </div>
+  <!-- Modal -->
+  <div class="modal fade " id="viewModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h1 class="modal-title fs-5" id="exampleModalLabel">View Record</h1>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body p-2 ">
+         
+         
+            <form name="clickedData" class="container p-4"  novalidate>
+               
+                    <label for="Name" class="col-sm-5 m-2">Name:<span style="color: red;"><b> * </b></span> </label>
+                    <input type="text" name="name"  ng-model="clickedData.name" readonly><br>
+                   
+                    <label for="phnno" class="col-sm-5 m-2">PhoneNo: <span style="color: red;"><b> * </b></span> </label>
+                    <input type="number" ng-model="clickedData.phnno" name="phnno"  readonly  ><br>
+                  
+                    <label for="gender" class="col-sm-5 m-2">Gender: <span style="color: red;"><b> * </b></span> </label>
+                    <input type="radio" name="gender"  ng-model="clickedData.gender" ng-value='"Male"'> Male
+                    <input type="radio" name="gender" ng-model="clickedData.gender" ng-value='"Female"'> Female<br />
+                    
+                    <label for="phnno" class="col-sm-5 m-2">Confirm PhoneNo: <span style="color: red;"><b> * </b></span> </label>
+                    <input type="text" placeholder="Confirm Phone Number" name="conPhnno"  readonly ng-model="clickedData.conPhnno" >
+                   <br>
+                    <label for="email" class="col-sm-5 m-2" length="100">Email: <span style="color: red;"><b> * </b></span> </label>
+                    <input type="email" placeholder="Email" name="email" readonly ng-model="clickedData.email"><br>
+                   
+                    <label for="email" class="col-sm-5 m-2">Confirm Email: <span style="color: red;"><b> * </b></span> </label>
+                    <input type="email" placeholder="Confirm Email"  name="confemail" readonly  ng-model="clickedData.confemail" ><br>
+                   <div class="checkbox p-2 m-2">
+                    <input type="checkbox" value="Send an Email"  ng-model="clickedData.serviceOpted"> Send an Email
+                  <br>
+                    <input type="checkbox" value="Send a Message to Phone Number" ng-model="clickedData.serviceOpted"> Send a Message to Phone
+                    Number
+                </div>
+                                  
+                
+            </form>
+            
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          
+        </div>
+      </div>
+    </div>
+  </div>
+  </div>
+    <script type="text/javascript" src="main.js"></script>
+    <script type="text/javascript" src="route.js"></script>
+</body>
+
+</html>

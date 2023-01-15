@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>View</title>
+        <script type="text/javascript" src="angular.js"></script>
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet"
+            integrity="sha384-rbsA2VBKQhggwzxH7pPCaAqO46MgnOM80zW1RWuH61DGLwZJEdK2Kadq2F9CUG65" crossorigin="anonymous">
+    <style>
+        *{
+            margin: 10px;
+        }
+    </style>
+        </head>
+
+    <body ng-app="crudApp">
+        <div ng-controller="crudController">
+<form name="data"   novalidate>
+    <div class="row">
+      <div class="col-sm-5  p-2">
+        <label for="Name" class="col-sm-3">Name:<span style="color: red;"><b> * </b></span> </label>
+        <input type="text"  ng-model="clickedData.name" readonly><br>
+       
+
+      </div>
+
+      <div class="col-sm-5  p-2">
+        <label for="phnno" class="col-sm-5">PhoneNo: <span style="color: red;"><b> * </b></span> </label>
+        <input type="number" placeholder="Phone Number" ng-model="clickedData.phnno" name="phnno" minlength="0"
+          maxlength="10" ng-pattern="/^[7-9][0-9]{9}$/" required><br>
+        
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-5 p-2 ">
+        <label for="gender" class="col-sm-3">Gender: <span style="color: red;"><b> * </b></span> </label>
+        <input type="radio" name="gender" required ng-model="clickedData.gender" ng-value='"Male"'>Male
+        <input type="radio" name="gender" ng-model="clickedData.gender" ng-value='"Female"' required>Female<br />
+        
+      </div>
+      <div class="col-sm-5  p-2">
+        <label for="phnno" class="col-sm-5">Confirm PhoneNo: <span style="color: red;"><b> * </b></span> </label>
+        <input type="text" placeholder="Confirm Phone Number" name="conPhnno" ng-model="form.conPhnno" minlength="0"
+          maxlength="10" ng-pattern="/^[7-9][0-9]{9}$/" compare-to="data.phnno" required>
+       
+      </div>
+    </div>
+    <div class="row">
+      <div class=" col-sm-5 d-inline p-2">
+        <label for="email" class="col-sm-3" length="100">Email: <span style="color: red;"><b> * </b></span> </label>
+        <input type="email" placeholder="Email" name="email" ng-model="form.email" required><br>
+         
+      </div>
+      <div class=" col-sm-5 d-inline p-2">
+        <label for="email" class="col-sm-5">Confirm Email: <span style="color: red;"><b> * </b></span> </label>
+        <input type="email" placeholder="Confirm Email" name="confemail" ng-model="form.confemail" required><br>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5 p-4">
+        <input type="checkbox" value="Send an Email" ng-model="form.byEmail">Send an Email
+      </div>
+      <div class="col-sm-7 p-4">
+        <input type="checkbox" value="Send a Message to Phone Number" ng-model="form.byPhone"> Send a Message to Phone
+        Number
+      </div>
+
+    </div>
+        
+    
+</form>
+</div>
+<script type="text/javascript" src="main.js"></script>
+</body>
+</html>

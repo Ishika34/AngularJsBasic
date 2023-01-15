@@ -1,0 +1,96 @@
+<form name="data"   novalidate>
+    <div class="row">
+      <div class="col-sm-5  p-2">
+        <label for="Name" class="col-sm-3">Name:<span style="color: red;"><b> * </b></span> </label>
+        <input type="text" name="name" placeholder="Name" ng-model="form.name" pattern="[a-zA-Z]+" required><br>
+        <span style="color:red;margin-left: 25%;" ng-show="data.$submitted || data.name.$dirty">
+          <span class="error" ng-show="data.name.$error.required"><i class="fa fa-exclamation-circle"></i>Name is
+            Required</span>
+          <span class="error" ng-show="data.name.$error.pattern"><i class="fa fa-exclamation-circle"></i>Only Alphabet
+            allowed</span>
+        </span>
+
+      </div>
+
+      <div class="col-sm-5  p-2">
+        <label for="phnno" class="col-sm-5">PhoneNo: <span style="color: red;"><b> * </b></span> </label>
+        <input type="number" placeholder="Phone Number" ng-model="form.phnno" name="phnno" minlength="0"
+          maxlength="10" ng-pattern="/^[7-9][0-9]{9}$/" required><br>
+        <span style="color:red;margin-left: 40%;" ng-show="data.$submitted || data.phnno.$dirty">
+          <span class="error" ng-show="data.phnno.$error.required"><i class="fa fa-exclamation-circle"></i>Phone
+            Number is Required</span>
+          <span class="error" ng-show="data.phnno.$error.pattern"><i class="fa fa-exclamation-circle"></i>Please Enter
+            Valid Phone Number</span>
+          <span class="error"
+            ng-show="((data.phnno.$error.minlength || data.phnno.$error.maxlength) && data.phnno.$dirty )"><i
+              class="fa fa-exclamation-circle"></i>Phone Number must be of 10 digits</span>
+        </span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col-sm-5 p-2 ">
+        <label for="gender" class="col-sm-3">Gender: <span style="color: red;"><b> * </b></span> </label>
+        <input type="radio" name="gender" required ng-model="form.gender" ng-value='"Male"'>Male
+        <input type="radio" name="gender" ng-model="form.gender" ng-value='"Female"' required>Female<br />
+        <span style="color:red;margin-left: 25%;" ng-show="data.$submitted || data.gender.$dirty">
+          <span class="error" ng-show="data.gender.$error.required"><i class="fa fa-exclamation-circle"></i>Gender is
+            Required</span>
+
+        </span>
+      </div>
+      <div class="col-sm-5  p-2">
+        <label for="phnno" class="col-sm-5">Confirm PhoneNo: <span style="color: red;"><b> * </b></span> </label>
+        <input type="text" placeholder="Confirm Phone Number" name="conPhnno" ng-model="form.conPhnno" minlength="0"
+          maxlength="10" ng-pattern="/^[7-9][0-9]{9}$/" compare-to="data.phnno" required>
+        <span style="color:red;margin-left: 40%;" ng-show="data.$submitted || data.conPhnno.$dirty">
+          <span class="error" ng-show="data.conPhnno.$error.required"><i class="fa fa-exclamation-circle"></i>Please
+            Confirm Phone Number</span>
+          <span class="error" ng-show="data.conPhnno.$error.pattern"><i class="fa fa-exclamation-circle"></i>Please
+            Enter Valid Phone Number</span>
+            <span class="error" ng-show="data.conPhnno.$error.compareTo"><i class="fa fa-exclamation-circle"></i>Please
+              not same
+            
+            </span>
+          <span class="error"
+            ng-show="((data.conPhnno.$error.minlength || data.conPhnno.$error.maxlength) && data.conPhnno.$dirty )"><i
+              class="fa fa-exclamation-circle"></i>Phone Number must be of 10 digits</span>
+        </span>
+      </div>
+    </div>
+    <div class="row">
+      <div class=" col-sm-5 d-inline p-2">
+        <label for="email" class="col-sm-3" length="100">Email: <span style="color: red;"><b> * </b></span> </label>
+        <input type="email" placeholder="Email" name="email" ng-model="form.email" required><br>
+        <span style = "color:red;margin-left: 25%;" ng-show = "data.$submitted || data.email.$dirty && data.email.$invalid">  
+          <span ng-show = "data.email.$error.required"><i class="fa fa-exclamation-circle"></i>Email is required.</span>  
+          <span ng-show = "data.email.$error.email"><i class="fa fa-exclamation-circle"></i>Invalid email address.</span>  
+       </span>  
+      </div>
+      <div class=" col-sm-5 d-inline p-2">
+        <label for="email" class="col-sm-5">Confirm Email: <span style="color: red;"><b> * </b></span> </label>
+        <input type="email" placeholder="Confirm Email" name="confemail" ng-model="form.confemail" required><br>
+        <span style = "color:red;margin-left: 40%;" ng-show = "data.$submitted || data.confemail.$dirty && data.confemail.$invalid">  
+          <span ng-show = "data.confemail.$error.required"><i class="fa fa-exclamation-circle"></i>Email is required.</span>  
+          <span ng-show = "data.confemail.$error.email"><i class="fa fa-exclamation-circle"></i>Invalid email address.</span>  
+       </span>  
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-5 p-4">
+        <input type="checkbox" value="Send an Email" ng-model="form.byEmail">Send an Email
+      </div>
+      <div class="col-sm-7 p-4">
+        <input type="checkbox" value="Send a Message to Phone Number" ng-model="form.byPhone"> Send a Message to Phone
+        Number
+      </div>
+
+    </div>
+            <button type="submit" class="submit btn btn-primary" ng-disabled="data.name.$dirty &&  
+              data.name.$invalid || data.gender.$dirty &&  
+              data.gender.$invalid || data.email.$dirty &&  
+              data.email.$invalid  || data.phnno.$dirty &&  
+              data.phnno.$invalid  || data.confemail.$dirty &&  
+              data.confemail.$invalid" ng-click="submit()">Submit</button>
+    
+</form>
